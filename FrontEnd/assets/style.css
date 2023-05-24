@@ -93,8 +93,12 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor:pointer;
 }
-
+nav a {
+	text-decoration: none;
+	color:black;
+}
 li:hover {
 	color: #B1663C;
 }
@@ -267,6 +271,153 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+
+#connexion > * {
+	text-align: center;
+
+}
+
+label#textEmail {
+/* E-mail */
+position: absolute;
+width: 46px;
+height: 16px;
+left: 530px;
+top: 315px;
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+
+color: #3D3D3D;
+	
+}
+
+label#textMotdePasse {
+/* Mot de passe */
+position: absolute;
+width: 92px;
+height: 16px;
+left: 530px;
+top: 419px;
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+
+color: #3D3D3D;	
+	
+}
+#connexion h2{
+	/* Log In */
+position: absolute;
+width: 100px;
+height: 36px;
+left: 669px;
+top: 242px;
+
+font-family: 'Syne';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 36px;
+/* identical to box height */
+
+text-align: center;
+
+color: #1D6154;
+
+}
+#connexion form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#connexion input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#connexion textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input#email2, input#mot-de-passe {
+width: 379px;
+height: 51px;	
+}
+
+input#submit {
+/* Rectangle 15 */
+position: absolute;
+width: 179px;
+height: 36px;
+left: 630px;
+top: 500px;
+
+background: #1D6154;
+border-radius: 60px;	
+cursor:pointer;
+	
+}
+
+input#email2 {
+/* Rectangle 12 */
+position: absolute;
+width: 379px;
+height: 51px;
+left: 530px;
+top: 338px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);	
+	
+}
+
+input#mot-de-passe {
+/* Rectangle 13 */
+position: absolute;
+width: 379px;
+height: 51px;
+left: 530px;
+top: 441px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	
+}
+
+section#connexion p {
+/* Mot de passe oublié */
+position: absolute;
+height: 16px;
+left: 651px;
+top: 593px;
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+text-decoration-line: underline;
+
+color: #3D3D3D;
+cursor:pointer;
+
+	
+}
+
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -282,5 +433,22 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+footer#formulaire-connexion li {
+/* Mentions légales */
+position: absolute;
+right: 7.43%;
+top: 95%;
+bottom: 33.33%;
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 16px;
+color: #000000;
+cursor:pointer;
+	
 }
 

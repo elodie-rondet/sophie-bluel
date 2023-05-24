@@ -1,15 +1,48 @@
-<form id="modal-form" enctype="multipart/form-data">
-    <div class="input-file"></div>
-    <div class="form-group">
-        <div class="input-titre">
-            <label for="titre" id="label-titre">Titre</label>
-            <input type="text" id="titre" name="titre">
-        </div>
-        <label for="categories" id="categories">Catégorie</label>
-        <select id="categories-select">
-            <option value="1">Objets</option>
-            <option value="2">Appartements</option>
-            <option value="3">Hotels &amp; restaurants</option>
-        </select>
-    </div>
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+	<script src="js/functions.js" defer></script>
+</head>
+<body>
+<header>
+	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<nav>
+		<ul>
+			<li><a href="D:/Portfolio-architecte-sophie-bluel-master/Portfolio-architecte-sophie-bluel-master/FrontEnd/index.html" target="_blank">projets</a></li>
+			<li>contact</li>
+			<li><a href="D:/Portfolio-architecte-sophie-bluel-master/Portfolio-architecte-sophie-bluel-master/FrontEnd/form.html" target="_blank">login</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>
+	<section id="connexion">
+		<h2>Log in</h2>
+		<form action="#" method="post">
+			<label id="textEmail"  for="email">Email</label>
+			<input type="email" name="email" id="email2" required>
+			<label id="textMotdePasse" for="mot-de-passe">Mot de passe</label>
+			<input type="mot-de-passe" name="mot-de-passe" id="mot-de-passe" required>
+			<input id="submit" type="submit" value="Se connecter">
+		</form>
+		<p>mot de passe oublié</p>
+	</section>
+</main>
+
+<footer id="formulaire-connexion">
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+</body>
+</html>
