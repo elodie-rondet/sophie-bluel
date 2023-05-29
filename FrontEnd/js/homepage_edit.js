@@ -124,22 +124,45 @@ for (var i = 0; i < btns.length; i++) {
  
 
 function openModal ()  {
-    document.querySelector('#modal_modifier_1').style.display = null;
-    document.querySelector('#modal_modifier_1').removeAttribute('aria-hidden');
-    document.querySelector('#modal_modifier_1').setAttribute('aria-modal',true);
+  const body = document.querySelector("body#body");
+  body.setAttribute ("style","background: rgba(0, 0, 0, 0.3);");
     const reponse = fetch("http://localhost:5678/api/works", {
   method: "GET",
   headers:{
     'Authorization': `Bearer ` + sessionStorage.getItem('token'),
   },
 }).then((resp) => resp.json()).then(function (response) {{ 
-  const gallery = document.querySelector("#gallery_modal_1");
-  document.querySelector('#titre_modal_modifier').innerHTML ="Galerie photo";
-  document.querySelector("#gallery_modal_1").style.display = null;
-  if (document.querySelector('#imgAjout') != null)
-  document.querySelector('#imgAjout').remove();
-  if (document.querySelector('#buttonAjout') != null)
-  document.querySelector('#buttonAjout').remove();
+  let test = document.querySelector("#modal_modifier_1");
+  if (test != null) test.remove();
+  let test2 = document.querySelector("#modal_modifier_2");
+  if (test2 != null) test2.remove();
+  let fenetreModal = document.querySelector("#fenetre_modal");
+  let asideGallery = document.createElement("aside");
+  asideGallery.id = "modal_modifier_1";
+  asideGallery.className = "modal";
+  fenetreModal.appendChild(asideGallery);
+  let divWrapperGallery = document.createElement("div");
+  divWrapperGallery.id = "wrapper_modal_1";
+  asideGallery.appendChild(divWrapperGallery);
+  let closeButtonGallery = document.createElement("p");
+  closeButtonGallery.id = "close";
+  closeButtonGallery.setAttribute("onclick","deleteModal()");
+  closeButtonGallery.innerHTML ="X";
+  divWrapperGallery.appendChild(closeButtonGallery);
+  let titreGallery = document.createElement("p");
+  titreGallery.id = "titre_modal_modifier";
+  titreGallery.innerHTML ="Galerie photo";
+  divWrapperGallery.appendChild(titreGallery);
+  const gallery = document.createElement("div");
+  gallery.id = "gallery_modal_1";
+  divWrapperGallery.appendChild(gallery);
+  const buttonModal = document.createElement("button-modal");
+  buttonModal.className = "button-modal";
+  buttonModal.innerHTML ="Ajouter une photo";
+  buttonModal.style.textAlign ="center";
+  buttonModal.style.paddingTop ="15px";
+  buttonModal.setAttribute("onclick","openModalAjout()")
+  divWrapperGallery.appendChild(buttonModal);
   if (gallery.childElementCount == 0) {
   for (let i = 0; i < response.length; i++) {
     // Création d’une balise dédiée à l'image
@@ -179,28 +202,69 @@ function openModal ()  {
   button.className = "button-modal";
   button.setAttribute("onclick","openModalAjout()");
   button.innerHTML ="Ajouter une photo";
+  button.style.textAlign="center";
+  if (parent != null)
   parent.appendChild(button);
 }
 
 function openModalAjout ()  {
-  document.querySelector('#titre_modal_modifier').innerHTML ="Ajouter une photo";
-  document.querySelector('#titre_modal_modifier').style.width ="80%";
-  document.querySelector('#titre_modal_modifier').style.left ="6%";
-  document.querySelector("#gallery_modal_1").style.display = "none";
-  document.querySelector(".button-modal").remove();
-  document.querySelector("#close").style.top="6%";
+  let test = document.querySelector("#modal_modifier_2");
+  if (test != null) test.remove();
+  const body = document.querySelector("body#body");
+  body.setAttribute ("style","background: rgba(0, 0, 0, 0.3);");
+  let fenetreModal = document.querySelector("#fenetre_modal");
+  let asideGallery = document.createElement("aside");
+  asideGallery.id = "modal_modifier_2";
+  asideGallery.className = "modal";
+  document.querySelector('#modal_modifier_1').remove();
+  fenetreModal.appendChild(asideGallery);
+  let divWrapperGallery = document.createElement("div");
+  divWrapperGallery.id = "wrapper_modal_1";
+  asideGallery.appendChild(divWrapperGallery);
+  let closeButtonGallery = document.createElement("p");
+  closeButtonGallery.id = "close";
+  closeButtonGallery.innerHTML ="X";
+  closeButtonGallery.setAttribute("onclick","deleteModal()")
+  closeButtonGallery.style.top="6%";
+  divWrapperGallery.appendChild(closeButtonGallery);
+  let returnButtonGallery = document.createElement("img");
+  returnButtonGallery.id = "return";
+  returnButtonGallery.src = "./assets/images/return.png";
+  returnButtonGallery.setAttribute("onclick","openModal()")
+  divWrapperGallery.appendChild(returnButtonGallery);
+  let titreGallery = document.createElement("p");
+  titreGallery.id = "titre_modal_modifier";
+  titreGallery.innerHTML ="Ajouter une photo";
+  titreGallery.style.width ="75%";
+  titreGallery.style.left ="10%";
+  divWrapperGallery.appendChild(titreGallery);
+  const gallery = document.createElement("div");
+  gallery.id = "gallery_modal_1";
   const imgAjout = document.createElement("img");
   const buttonAjout = document.createElement("button");
+  const ajoutImageText = document.createElement("p");
+  ajoutImageText.innerHTML = "jpeg, png, 4mo max";
+  ajoutImageText.style.top ="300px";
+  ajoutImageText.style.left ="225px";
+  ajoutImageText.style.position ="absolute";
   const parentAjout = document.querySelector('#wrapper_modal_1');
+  let asideModal = document.querySelector(".modal");
+  asideModal.height = "670px";
   imgAjout.src = "./assets/images/ajout_image.png";
   imgAjout.id="imgAjout";
   buttonAjout.id="buttonAjout";
   buttonAjout.innerHTML="+ Ajouter photos";
   parentAjout.appendChild(imgAjout);
   parentAjout.appendChild(buttonAjout);
+  parentAjout.appendChild(ajoutImageText);
 }
 
 function deleteModal ()  {
-  document.querySelector("#modal_modifier_1").style.display="none";
+  if (document.querySelector("#modal_modifier_1") != null)
+    document.querySelector("#modal_modifier_1").style.display="none";
+  if (document.querySelector("#modal_modifier_2") != null)
+    document.querySelector("#modal_modifier_2").style.display="none";
+    const body = document.querySelector("body#body");
+    body.setAttribute ("style","background: white");
 }
 
