@@ -133,8 +133,15 @@ function openModal ()  {
     'Authorization': `Bearer ` + sessionStorage.getItem('token'),
   },
 }).then((resp) => resp.json()).then(function (response) {{ 
+  const gallery = document.querySelector("#gallery_modal_1");
+  document.querySelector('#titre_modal_modifier').innerHTML ="Galerie photo";
+  document.querySelector("#gallery_modal_1").style.display = null;
+  if (document.querySelector('#imgAjout') != null)
+  document.querySelector('#imgAjout').remove();
+  if (document.querySelector('#buttonAjout') != null)
+  document.querySelector('#buttonAjout').remove();
+  if (gallery.childElementCount == 0) {
   for (let i = 0; i < response.length; i++) {
-    const gallery = document.querySelector("#gallery_modal_1");
     // Création d’une balise dédiée à l'image
     const figure = document.createElement("figure");
     // On crée l’élément img.
@@ -142,23 +149,58 @@ function openModal ()  {
     // On crée l’élément div.
     const divElement = document.createElement("div");
     const divContent = document.createElement("div");
+    const icone = document.createElement("img");
     const figcaption = document.createElement("figcaption");
-    const button = document.createElement("button");
     // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
     imageElement.src = response[i].imageUrl;
+    icone.src = "./assets/images/supprimer.png";
+    icone.style.width="17px";
+    icone.style.height="17px";
+    icone.style.top="25px";
+    icone.style.left="55px";
+    icone.style.zIndex="9999";
+    icone.style.position="relative";
+    icone.style.cursor="pointer";
     imageElement.alt = response[i].title;
     figcaption.innerText = "éditer";
-    button.innerText = "Ajouter une photo";
-    button.className = "button-modal";
+    figure.className = "figure-button-modal";
     // On rattache la balise divElement à la div gallery
     gallery.appendChild(divElement);
     divElement.appendChild(divContent);
     divContent.appendChild(figure);
     // On rattache l’image à la balise figure
+    figure.appendChild(icone);
     figure.appendChild(imageElement);
     figure.appendChild(figcaption);
-    gallery.appendChild(button);
     }
-    filterSelection("all") 
-  }});
+  }}});
+  const button = document.createElement("button");
+  const parent =  document.querySelector("#wrapper_modal_1");
+  button.className = "button-modal";
+  button.setAttribute("onclick","openModalAjout()");
+  button.innerHTML ="Ajouter une photo";
+  parent.appendChild(button);
 }
+
+function openModalAjout ()  {
+  document.querySelector('#titre_modal_modifier').innerHTML ="Ajouter une photo";
+  document.querySelector('#titre_modal_modifier').style.width ="80%";
+  document.querySelector('#titre_modal_modifier').style.left ="6%";
+  document.querySelector("#gallery_modal_1").style.display = "none";
+  document.querySelector(".button-modal").remove();
+  document.querySelector("#close").style.top="6%";
+  const imgAjout = document.createElement("img");
+  const buttonAjout = document.createElement("button");
+  const parentAjout = document.querySelector('#wrapper_modal_1');
+  imgAjout.src = "./assets/images/ajout_image.png";
+  imgAjout.id="imgAjout";
+  buttonAjout.id="buttonAjout";
+  buttonAjout.innerHTML="+ Ajouter photos";
+  parentAjout.appendChild(imgAjout);
+  parentAjout.appendChild(buttonAjout);
+}
+
+function deleteModal ()  {
+  document.querySelector("#modal_modifier_1").style.display="none";
+}
+
