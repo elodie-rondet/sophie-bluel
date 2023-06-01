@@ -41,21 +41,22 @@ const reponse = fetch("http://localhost:5678/api/works", {
 
 
 function addWorks() {
-    const formulaire = document.getElementById("modal-form");
-    const image = document.getElementById("image").files[0];
-    const title = document.getElementById("titre").value;
+    const image = document.getElementById("img-ajout-image").src;
+    const title = document.querySelector(".input-image");
     const category = document.getElementById("categories-select").value;
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("titre", titre);
-    formData.append("categorie", categorie);
+    formData.append("titre", title);
+    formData.append("categorie", category);
+
     fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers:{
         'Authorization': `Bearer ` + sessionStorage.getItem('token'),
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': "application/json",
       },
-      body: formData,
+      body: JSON.stringify(formData),
+      
     })
       .then((response) => {
         if (!response.ok) {
@@ -156,13 +157,17 @@ function openModal ()  {
   const gallery = document.createElement("div");
   gallery.id = "gallery_modal_1";
   divWrapperGallery.appendChild(gallery);
-  const buttonModal = document.createElement("button-modal");
+  const buttonModal = document.createElement("button");
   buttonModal.className = "button-modal";
   buttonModal.innerHTML ="Ajouter une photo";
   buttonModal.style.textAlign ="center";
-  buttonModal.style.paddingTop ="15px";
   buttonModal.setAttribute("onclick","openModalAjout()")
   divWrapperGallery.appendChild(buttonModal);
+  const supprimerGallery = document.createElement("p");
+  supprimerGallery.className = "supprimer-galerie";
+  supprimerGallery.innerHTML ="Supprimer la galerie";
+  supprimerGallery.setAttribute("onclick","openModalAjout()")
+  divWrapperGallery.appendChild(supprimerGallery);
   if (gallery.childElementCount == 0) {
   for (let i = 0; i < response.length; i++) {
     // Création d’une balise dédiée à l'image
@@ -232,6 +237,7 @@ function openModalAjout ()  {
   returnButtonGallery.src = "./assets/images/return.png";
   returnButtonGallery.setAttribute("onclick","openModal()")
   divWrapperGallery.appendChild(returnButtonGallery);
+  /* Titre galerie */
   let titreGallery = document.createElement("p");
   titreGallery.id = "titre_modal_modifier";
   titreGallery.innerHTML ="Ajouter une photo";
@@ -240,23 +246,89 @@ function openModalAjout ()  {
   divWrapperGallery.appendChild(titreGallery);
   const gallery = document.createElement("div");
   gallery.id = "gallery_modal_1";
-  const imgAjout = document.createElement("img");
+
+  /* Conteneur galerie */
+  const divConteneurGallerie = document.createElement("div");
+  divConteneurGallerie.className = "conteneurGallerie";
+  const imgAjout = document.createElement("label");
+  const imgAjoutCache = document.createElement("input");
   const buttonAjout = document.createElement("button");
   const ajoutImageText = document.createElement("p");
+  ajoutImageText.id = "ajoutImageText";
   ajoutImageText.innerHTML = "jpeg, png, 4mo max";
-  ajoutImageText.style.top ="300px";
-  ajoutImageText.style.left ="225px";
+  ajoutImageText.style.top ="140px";
+  ajoutImageText.style.left ="140px";
   ajoutImageText.style.position ="absolute";
+
+  /* Titre image */
+  const titreImage = document.createElement("p");
+  titreImage.innerHTML = "Titre";
+  titreImage.className="titre-image";
+
+  /* input image */
+  const inputImage = document.createElement("input");
+  inputImage.className="input-image";
+
+
+  /* Titre catégorie */
+  const categorieImage = document.createElement("p");
+  categorieImage.innerHTML = "Catégorie";
+  categorieImage.className="categorie-image";
+
+   /* liste déroulante catégorie */
+  const listedéroulanteCategorie = document.createElement("select");
+  listedéroulanteCategorie.id = "categories-select";
+  const categorieObjets = document.createElement("option");
+  categorieObjets.innerHTML = "Objets";
+  categorieObjets.value = "1";
+  const categorieAppartements = document.createElement("option");
+  categorieAppartements.innerHTML = "Appartements";
+  categorieAppartements.value = "2";
+  const categorieHotelsRestaurants = document.createElement("option");
+  categorieHotelsRestaurants.innerHTML = "Hôtels & Restaurants";
+  categorieHotelsRestaurants.value = "3";
+  listedéroulanteCategorie.className="listedéroulanteCategorie-image";
   const parentAjout = document.querySelector('#wrapper_modal_1');
   let asideModal = document.querySelector(".modal");
   asideModal.height = "670px";
-  imgAjout.src = "./assets/images/ajout_image.png";
-  imgAjout.id="imgAjout";
+  const imgLabel = document.createElement("img");
+  imgLabel.id = "imgLabel";
+  imgLabel.src = "./assets/images/ajout_image.png";
+  imgAjout.setAttribute("for","file-input");
+  imgAjout.style.cursor = "pointer";
+  imgAjoutCache.setAttribute("type","file");
+  imgAjoutCache.setAttribute("id","file-input");
+  imgAjoutCache.setAttribute("style","display: none");
+  imgLabel.style.cursor="pointer";
+  imgLabel.id="img-ajout-image";
+  imgAjout.appendChild(imgLabel);
+  imgAjoutCache.setAttribute ("onchange","previewPicture(this)")
+
   buttonAjout.id="buttonAjout";
   buttonAjout.innerHTML="+ Ajouter photos";
-  parentAjout.appendChild(imgAjout);
-  parentAjout.appendChild(buttonAjout);
-  parentAjout.appendChild(ajoutImageText);
+  buttonAjout.type = "file";
+
+    /* bouton valider */
+    const boutonValider = document.createElement("button");
+    boutonValider.innerHTML = "Valider";
+    boutonValider.className="button-valider";
+    boutonValider.setAttribute ("onclick","addWorks()")
+
+  /* Ajout DOM */
+  parentAjout.appendChild(divConteneurGallerie);
+
+  divConteneurGallerie.appendChild(buttonAjout);
+  divConteneurGallerie.appendChild(ajoutImageText);
+  divConteneurGallerie.appendChild(titreImage);
+  divConteneurGallerie.appendChild(inputImage);
+  divConteneurGallerie.appendChild(categorieImage);
+  divConteneurGallerie.appendChild(listedéroulanteCategorie);
+  listedéroulanteCategorie.appendChild(categorieObjets);
+  listedéroulanteCategorie.appendChild(categorieAppartements);
+  listedéroulanteCategorie.appendChild(categorieHotelsRestaurants);
+  divConteneurGallerie.appendChild(boutonValider);
+  divConteneurGallerie.appendChild(imgAjout);
+  divConteneurGallerie.appendChild(imgAjoutCache);
 }
 
 function deleteModal ()  {
@@ -267,4 +339,51 @@ function deleteModal ()  {
     const body = document.querySelector("body#body");
     body.setAttribute ("style","background: white");
 }
+
+
+  function previewPicture(e) {
+  const [picture] = e.files
+  if (picture) {
+      document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
+      document.querySelector("#img-ajout-image").setAttribute("style","margin-top:0px;margin-left:auto;margin-right:auto;height:169px;position:relative;display:flex;");
+      document.querySelector("#buttonAjout").style.display = "none";
+      document.querySelector("#ajoutImageText").style.display = "none";
+      document.do
+  }
+  } 
+
+const ball=  document.querySelector("#modal_modifier_1") != null ?  document.querySelector("#modal_modifier_1") :  document.querySelector("#modal_modifier_2");
+
+ball.onmousedown = function(event) {
+  // (1) la préparer au déplacement :  réglé en absolute et en haut par z-index
+  ball.style.position = 'absolute';
+  ball.style.zIndex = 1000;
+
+  // déplacez-le de tout parent actuel directement dans body
+  // pour le placer par rapport à body
+  document.body.append(ball);
+
+  // Centrer la balle aux coordonnées (pageX, pageY)
+  function moveAt(pageX, pageY) {
+    ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
+    ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+  }
+
+  // déplacer notre balle en positionnement absolu sous le pointeur
+  moveAt(event.pageX, event.pageY);
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  // (2) déplacer la balle sur le déplacement de la souris
+  document.addEventListener('mousemove', onMouseMove);
+
+  // (3) laisser tomber la balle, retirer les gestionnaires inutiles
+  ball.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    ball.onmouseup = null;
+  };
+
+};
 
