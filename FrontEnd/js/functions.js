@@ -180,31 +180,36 @@ function afficheGalleryModal () {
 }
 
   function addWorks(event) {   
-    const title = document.querySelector("input.input-image").value;
-    const category = document.getElementById("categories-select").selectedOptions[0].value;
-    const image = document.getElementById('file-input').files[0];
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("image", image);
-    formData.append("category", category);
-    fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers:{
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,   
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error status code: ' + res.status + res.Error);
-        }
+    var dialog = confirm("Voulez-vous ajouter un nouveau travail ?");
+    if (dialog) {
+      const title = document.querySelector("input.input-image").value;
+      const category = document.getElementById("categories-select").selectedOptions[0].value;
+      const image = document.getElementById('file-input').files[0];
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", image);
+      formData.append("category", category);
+      fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers:{
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,   
       })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error status code: ' + res.status + res.Error);
+          }
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    console.log('Travail Ajouté')
+    }
+
   }
 
  
