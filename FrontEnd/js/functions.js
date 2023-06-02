@@ -56,7 +56,7 @@ else {
 const reponse = fetch("http://localhost:5678/api/works", {
   method: "GET",
   headers:{
-    'Authorization': `Bearer ` + sessionStorage.getItem('token'),
+    'Authorization': `Bearer ` + localStorage.getItem('token'),
   },
 }).then((resp) => resp.json()).then(function (response) {{ 
   for (let i = 0; i < response.length; i++) {
@@ -95,7 +95,7 @@ const reponse = fetch("http://localhost:5678/api/works", {
 function addWorks(event) {   
     const title = document.querySelector("input.input-image").value;
     const category = document.getElementById("categories-select").selectedOptions[0].value;
-    const image = URL.createObjectURL(document.getElementById('file-input').files[0]);
+    const image = document.getElementById('file-input').files[0];
     const formData = new FormData();
     formData.append("title", title);
     formData.append("imageUrl", image);
@@ -230,7 +230,10 @@ function openModal ()  {
     const figcaption = document.createElement("figcaption");
     // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
     imageElement.src = response[i].imageUrl;
+    icone.id = response[i].id;
+    icone.className = "img_supprimer";
     icone.src = "./assets/images/supprimer.png";
+    icone.setAttribute("onclick","supprimer(this)");
     icone.style.width="17px";
     icone.style.height="17px";
     icone.style.top="25px";
@@ -259,6 +262,21 @@ function openModal ()  {
   button.style.textAlign="center";
   if (parent != null)
   parent.appendChild(button);
+}
+
+
+function supprimer(event) {
+var element = document.getElementsByClassName('img_supprimer');
+const id = event.id;
+  fetch("http://localhost:5678/api/works/"+id, {
+  method: "DELETE",
+  headers:{
+    'Authorization': `Bearer ` + localStorage.getItem('token'),
+  },
+}).then((resp) => resp.json()).then(function (response) {{ 
+  response.remove();
+}});
+
 }
 
 function openModalAjout ()  {
