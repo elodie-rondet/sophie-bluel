@@ -1,12 +1,13 @@
 var token = localStorage.getItem('token');
 
 if (token != null) {
-  document.querySelector("body#body").setAttribute("style","margin-top:5%");
+  document.querySelector("body#body").setAttribute("style","margin-top:8%");
   document.querySelector("li#lien-login").innerHTML="logout";
   document.querySelector("li#lien-login").setAttribute("onclick","deconnexion()");
   document.querySelector("div#bouton_modifier").setAttribute("style","display:flex");
   document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:flex");
   document.querySelector("div#barre_edition").setAttribute("style","display:flex");
+  document.querySelector("div#myBtnContainer").setAttribute("style","display:none");
 }
 else {
   document.querySelector("li#lien-login").setAttribute("onclick","connexion()");
@@ -274,9 +275,8 @@ const id = event.id;
     'Authorization': `Bearer ` + localStorage.getItem('token'),
   },
 }).then((resp) => resp.json()).then(function (response) {{ 
-  response.remove();
+  openModal ();
 }});
-
 }
 
 function openModalAjout ()  {
