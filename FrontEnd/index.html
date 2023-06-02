@@ -11,17 +11,23 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="js/functions.js" defer></script>
 </head>
-<body>
+<body id="body">
 <header>
+	<div id="barre_edition" style="display: none;">
+		<img id="modifier" src="./assets/images/modifier.png" alt="">
+		<p id="text">Mode édition</p>
+		<button id="publier">publier les changements</button>
+	</div>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
 		<ul>
-			<li><a href="D:/Portfolio-architecte-sophie-bluel-master/Portfolio-architecte-sophie-bluel-master/FrontEnd/index.html" target="_blank">projets</a></li>
-			<li>contact</li>
-			<li><a href="D:/Portfolio-architecte-sophie-bluel-master/Portfolio-architecte-sophie-bluel-master/FrontEnd/form.html" target="_blank">login</a></li>
+			<li id="lien-projets"><a id="lien-projets-a" href="#portfolio" target="_blank">projets</a></li>
+			<li id="lien-contact"><a href="#contact">contact</a></li>
+			<li id="lien-login"><a href="form.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+
 </header>
 <main>
 	<section id="introduction">
@@ -35,8 +41,22 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
+	<div id="fenetre_modal">
+	</div>
+	<div id="bouton_modifier" style="display: none;">
+		<a href="#modal_modifier" onclick="openModal()">
+			<img href="#modal_modifier" id="modifier_noir" src="./assets/images/modifier_noir.png"  onclick="openModal()" alt="">
+			<p id="texte_modifier">modifier</p>
+		</a>
+	</div>
 <section id="portfolio">
 		<h2>Mes projets</h2>
+		<div id="bouton_modifier_projets" style="display: none;">
+			<a href="#modal_modifier" onclick="openModal()">
+				<img href="#modal_modifier" id="modifier_noir" src="./assets/images/modifier_noir.png"  onclick="openModal()" alt="">
+				<p id="texte_modifier">modifier</p>
+			</a>
+		</div>
 <div id="myBtnContainer" class="filters">
   <button class="btn active" onclick="filterSelection('all')">Tous</button>
   <button class="btn" onclick="filterSelection('objets')"> Objets</button>
@@ -46,65 +66,6 @@
 
 <!-- Portfolio Gallery Grid -->
 <div class="gallery">
- <!-- <div class="column nature">
-	<figure>
-		<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-		<figcaption>Abajour Tahina</figcaption>
-	</figure>
-  </div>
-  <div class="column nature">
-    <figure>
-		<img id="appartement1" class="active appartements" src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-		<figcaption>Appartement Paris V</figcaption>
-	</figure>
-  </div>
-  <div class="column nature">
-    <figure>
-		<img class="active hotels-restaurants" src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-		<figcaption>Restaurant Sushisen - Londres</figcaption>
-	</figure>
-  </div>
-
-  <div class="column cars">
-    <figure>
-		<img class="active appartements" src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-		<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-	</figure>
-  </div>
-  <div class="column cars">
-    <figure>
-		<img class="active objets" src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-		<figcaption>Structures Thermopolis</figcaption>
-	</figure>
-  </div>
-  <div class="column cars">
-    <div class="content">
-      <img src="assets/images/appartement-paris-xviii.png" alt="Car" style="width:100%">
-      <h4>Classic</h4>
-      <p>Lorem ipsum dolor..</p>
-    </div>
-  </div>
-
-  <div class="column people">
-    <div class="content">
-      <img src="assets/images/hotel-first-arte-new-delhi.png" alt="People" style="width:100%">
-      <h4>Girl</h4>
-      <p>Lorem ipsum dolor..</p>
-    </div>
-  </div>
-  <div class="column people">
-    <div class="content">
-      <img src="assets/images/hotel-first-arte-new-delhi.png" alt="People" style="width:100%">
-      <h4>Man</h4>
-      <p>Lorem ipsum dolor..</p>
-    </div>
-  </div>
-  <div class="column people">
-    <div class="content">
-      <img src="assets/images/hotel-first-arte-new-delhi.png" alt="People" style="width:100%">
-      <h4>Woman</h4>
-      <p>Lorem ipsum dolor..</p>
-    </div>-->
   </div>
 <!-- END GRID -->
 </div>
