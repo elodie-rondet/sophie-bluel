@@ -1,3 +1,4 @@
+
 var token = localStorage.getItem('token');
 
 if (token != null) {
@@ -15,6 +16,7 @@ else {
   document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:none");
   document.querySelector("div#barre_edition").setAttribute("style","display:none");
 }
+afficheGallery ();
 
 
 function connexion() {
@@ -54,44 +56,128 @@ else {
 }
 }
 
-const reponse = fetch("http://localhost:5678/api/works", {
-  method: "GET",
-  headers:{
-    'Authorization': `Bearer ` + localStorage.getItem('token'),
-  },
-}).then((resp) => resp.json()).then(function (response) {{ 
-  for (let i = 0; i < response.length; i++) {
-    const gallery = document.querySelector(".gallery");
-    // Création d’une balise dédiée à l'image
-    const figure = document.createElement("figure");
-    // On crée l’élément img.
-    const imageElement = document.createElement("img");
-    // On crée l’élément div.
-    const divElement = document.createElement("div");
-    const divContent = document.createElement("div");
-    const figcaption = document.createElement("figcaption");
-    // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
-    imageElement.src = response[i].imageUrl;
-    imageElement.alt = response[i].title;
-    divContent.className = "content";
-    if (response[i].categoryId == 1)
-    divElement.className = "images objets";
-    else if (response[i].categoryId == 2)
-    divElement.className = "images appartements";
-    else
-    divElement.className = "images hotels-restaurants";
-    figcaption.title = response[i].title;
-    figcaption.innerText = response[i].title;
-    // On rattache la balise divElement à la div gallery
-    gallery.appendChild(divElement);
-    divElement.appendChild(divContent);
-    divContent.appendChild(figure);
-    // On rattache l’image à la balise figure
-    figure.appendChild(imageElement);
-    figure.appendChild(figcaption);
-    }
-    filterSelection("all") 
-  }});
+function afficheGallery () { 
+  const reponse = fetch("http://localhost:5678/api/works", {
+    method: "GET",
+    headers:{
+      'Authorization': `Bearer ` + localStorage.getItem('token'),
+    },
+  }).then((resp) => resp.json()).then(function (response) {{ 
+    for (let i = 0; i < response.length; i++) {
+      const gallery = document.querySelector(".gallery");
+      // Création d’une balise dédiée à l'image
+      const figure = document.createElement("figure");
+      // On crée l’élément img.
+      const imageElement = document.createElement("img");
+      // On crée l’élément div.
+      const divElement = document.createElement("div");
+      const divContent = document.createElement("div");
+      const figcaption = document.createElement("figcaption");
+      // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
+      imageElement.src = response[i].imageUrl;
+      imageElement.alt = response[i].title;
+      divContent.className = "content";
+      if (response[i].categoryId == 1)
+      divElement.className = "images objets";
+      else if (response[i].categoryId == 2)
+      divElement.className = "images appartements";
+      else
+      divElement.className = "images hotels-restaurants";
+      figcaption.title = response[i].title;
+      figcaption.innerText = response[i].title;
+      // On rattache la balise divElement à la div gallery
+      gallery.appendChild(divElement);
+      divElement.appendChild(divContent);
+      divContent.appendChild(figure);
+      // On rattache l’image à la balise figure
+      figure.appendChild(imageElement);
+      figure.appendChild(figcaption);
+      }
+      filterSelection("all") 
+    }});
+}
+
+function afficheGalleryModal () {
+  fetch("http://localhost:5678/api/works", {
+    method: "GET",
+    headers:{
+      'Authorization': `Bearer ` + sessionStorage.getItem('token'),
+    },
+  }).then((resp) => resp.json()).then(function (response) {{ 
+    let test = document.querySelector("#modal_modifier_1");
+    if (test != null) test.remove();
+    let test2 = document.querySelector("#modal_modifier_2");
+    if (test2 != null) test2.remove();
+    let fenetreModal = document.querySelector("#fenetre_modal");
+    let asideGallery = document.createElement("aside");
+    asideGallery.id = "modal_modifier_1";
+    asideGallery.className = "modal";
+    fenetreModal.appendChild(asideGallery);
+    let divWrapperGallery = document.createElement("div");
+    divWrapperGallery.id = "wrapper_modal_1";
+    asideGallery.appendChild(divWrapperGallery);
+    let closeButtonGallery = document.createElement("p");
+    closeButtonGallery.id = "close";
+    closeButtonGallery.setAttribute("onclick","deleteModal()");
+    closeButtonGallery.innerHTML ="X";
+    divWrapperGallery.appendChild(closeButtonGallery);
+    let titreGallery = document.createElement("p");
+    titreGallery.id = "titre_modal_modifier";
+    titreGallery.innerHTML ="Galerie photo";
+    divWrapperGallery.appendChild(titreGallery);
+    const gallery = document.createElement("div");
+    gallery.id = "gallery_modal_1";
+    divWrapperGallery.appendChild(gallery);
+    const buttonModal = document.createElement("button");
+    buttonModal.className = "button-modal";
+    buttonModal.innerHTML ="Ajouter une photo";
+    buttonModal.style.textAlign ="center";
+    buttonModal.setAttribute("onclick","openModalAjout()")
+    divWrapperGallery.appendChild(buttonModal);
+    const supprimerGallery = document.createElement("p");
+    supprimerGallery.className = "supprimer-galerie";
+    supprimerGallery.innerHTML ="Supprimer la galerie";
+    supprimerGallery.setAttribute("onclick","openModalAjout()")
+    divWrapperGallery.appendChild(supprimerGallery);
+    if (gallery.childElementCount == 0) {
+    for (let i = 0; i < response.length; i++) {
+      // Création d’une balise dédiée à l'image
+      const figure = document.createElement("figure");
+      // On crée l’élément img.
+      const imageElement = document.createElement("img");
+      // On crée l’élément div.
+      const divElement = document.createElement("div");
+      const divContent = document.createElement("div");
+      const icone = document.createElement("img");
+      const figcaption = document.createElement("figcaption");
+      // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
+      imageElement.src = response[i].imageUrl;
+      icone.id = response[i].id;
+      icone.className = "img_supprimer";
+      icone.src = "./assets/images/supprimer.png";
+      icone.setAttribute("onclick","supprimer(this)");
+      icone.style.width="17px";
+      icone.style.height="17px";
+      icone.style.top="25px";
+      icone.style.left="55px";
+      icone.style.zIndex="9999";
+      icone.style.position="relative";
+      icone.style.cursor="pointer";
+      imageElement.alt = response[i].title;
+      figcaption.innerText = "éditer";
+      figure.className = "figure-button-modal";
+      // On rattache la balise divElement à la div gallery
+      gallery.appendChild(divElement);
+      divElement.appendChild(divContent);
+      divContent.appendChild(figure);
+      // On rattache l’image à la balise figure
+      figure.appendChild(icone);
+      figure.appendChild(imageElement);
+      figure.appendChild(figcaption);
+      }
+    }}});
+
+}
 
   function addWorks(event) {   
     const title = document.querySelector("input.input-image").value;
@@ -170,93 +256,12 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
   
-  
-
-  
-  
  
 
 function openModal ()  {
   const body = document.querySelector("body#body");
   body.setAttribute ("style","background: rgba(0, 0, 0, 0.3);");
-    const reponse = fetch("http://localhost:5678/api/works", {
-  method: "GET",
-  headers:{
-    'Authorization': `Bearer ` + sessionStorage.getItem('token'),
-  },
-}).then((resp) => resp.json()).then(function (response) {{ 
-  let test = document.querySelector("#modal_modifier_1");
-  if (test != null) test.remove();
-  let test2 = document.querySelector("#modal_modifier_2");
-  if (test2 != null) test2.remove();
-  let fenetreModal = document.querySelector("#fenetre_modal");
-  let asideGallery = document.createElement("aside");
-  asideGallery.id = "modal_modifier_1";
-  asideGallery.className = "modal";
-  fenetreModal.appendChild(asideGallery);
-  let divWrapperGallery = document.createElement("div");
-  divWrapperGallery.id = "wrapper_modal_1";
-  asideGallery.appendChild(divWrapperGallery);
-  let closeButtonGallery = document.createElement("p");
-  closeButtonGallery.id = "close";
-  closeButtonGallery.setAttribute("onclick","deleteModal()");
-  closeButtonGallery.innerHTML ="X";
-  divWrapperGallery.appendChild(closeButtonGallery);
-  let titreGallery = document.createElement("p");
-  titreGallery.id = "titre_modal_modifier";
-  titreGallery.innerHTML ="Galerie photo";
-  divWrapperGallery.appendChild(titreGallery);
-  const gallery = document.createElement("div");
-  gallery.id = "gallery_modal_1";
-  divWrapperGallery.appendChild(gallery);
-  const buttonModal = document.createElement("button");
-  buttonModal.className = "button-modal";
-  buttonModal.innerHTML ="Ajouter une photo";
-  buttonModal.style.textAlign ="center";
-  buttonModal.setAttribute("onclick","openModalAjout()")
-  divWrapperGallery.appendChild(buttonModal);
-  const supprimerGallery = document.createElement("p");
-  supprimerGallery.className = "supprimer-galerie";
-  supprimerGallery.innerHTML ="Supprimer la galerie";
-  supprimerGallery.setAttribute("onclick","openModalAjout()")
-  divWrapperGallery.appendChild(supprimerGallery);
-  if (gallery.childElementCount == 0) {
-  for (let i = 0; i < response.length; i++) {
-    // Création d’une balise dédiée à l'image
-    const figure = document.createElement("figure");
-    // On crée l’élément img.
-    const imageElement = document.createElement("img");
-    // On crée l’élément div.
-    const divElement = document.createElement("div");
-    const divContent = document.createElement("div");
-    const icone = document.createElement("img");
-    const figcaption = document.createElement("figcaption");
-    // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
-    imageElement.src = response[i].imageUrl;
-    icone.id = response[i].id;
-    icone.className = "img_supprimer";
-    icone.src = "./assets/images/supprimer.png";
-    icone.setAttribute("onclick","supprimer(this)");
-    icone.style.width="17px";
-    icone.style.height="17px";
-    icone.style.top="25px";
-    icone.style.left="55px";
-    icone.style.zIndex="9999";
-    icone.style.position="relative";
-    icone.style.cursor="pointer";
-    imageElement.alt = response[i].title;
-    figcaption.innerText = "éditer";
-    figure.className = "figure-button-modal";
-    // On rattache la balise divElement à la div gallery
-    gallery.appendChild(divElement);
-    divElement.appendChild(divContent);
-    divContent.appendChild(figure);
-    // On rattache l’image à la balise figure
-    figure.appendChild(icone);
-    figure.appendChild(imageElement);
-    figure.appendChild(figcaption);
-    }
-  }}});
+  afficheGalleryModal ();
   const button = document.createElement("button");
   const parent =  document.querySelector("#wrapper_modal_1");
   button.className = "button-modal";
@@ -277,8 +282,8 @@ const id = event.id;
     'Authorization': `Bearer ` + localStorage.getItem('token'),
   },
 }).then((resp) => resp.json()).then(function (response) {{ 
-  openModal ();
 }});
+afficheGalleryModal ();
 }
 
 function openModalAjout ()  {
@@ -408,6 +413,7 @@ function deleteModal ()  {
     document.querySelector("#modal_modifier_2").style.display="none";
     const body = document.querySelector("body#body");
     body.setAttribute ("style","background: white");
+    afficheGallery ();
 }
 
 
@@ -420,6 +426,7 @@ function deleteModal ()  {
       document.querySelector("#buttonAjout").style.display = "none";
       document.querySelector("#ajoutImageText").style.display = "none";
   }
+  document.querySelector(".button-valider").className = "button-valider-preview";
   } 
 
 const fenetre=  document.querySelector("#modal_modifier_1") != null ?  document.querySelector("#modal_modifier_1") :  document.querySelector("#modal_modifier_2");
