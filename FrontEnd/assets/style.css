@@ -837,8 +837,29 @@ top: 430px;
 left: 90px;
 background: #A7A7A7;
 border-radius: 60px;	
+font-family: 'Syne';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 17px;
 }
 
+button.button-valider-preview {
+/* Rectangle 15 */
+position: absolute;
+width: 237px;
+height: 36px;
+top: 430px;
+left: 90px;
+background: #1D6154;
+border-radius: 60px;
+color: white;
+font-family: 'Syne';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 17px;
+}
 img#img-ajout-image {
 	margin-left:170px;
 	margin-top:15px;
