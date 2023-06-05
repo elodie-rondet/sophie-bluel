@@ -42,11 +42,13 @@ function connexion() {
         }
           });
   }
+
   
 function deconnexion() {
 var dialog = confirm("Souhaitez-vous vous déconnecter?");
 if (dialog) {
   localStorage.removeItem('token');
+  sessionStorage.clear();
   document.location.href="index.html"; 
 }
 else {
@@ -128,6 +130,9 @@ function afficheGalleryModal () {
     const gallery = document.createElement("div");
     gallery.id = "gallery_modal_1";
     divWrapperGallery.appendChild(gallery);
+    const traitModal = document.createElement("div");
+    traitModal.className = "traitModal";
+    divWrapperGallery.appendChild(traitModal);
     const buttonModal = document.createElement("button");
     buttonModal.className = "button-modal";
     buttonModal.innerHTML ="Ajouter une photo";
@@ -152,17 +157,11 @@ function afficheGalleryModal () {
       const figcaption = document.createElement("figcaption");
       // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
       imageElement.src = response[i].imageUrl;
+      imageElement.className ="imgElement";
       icone.id = response[i].id;
-      icone.className = "img_supprimer";
+      icone.id = "img_supprimer";
       icone.src = "./assets/images/supprimer.png";
-      icone.setAttribute("onclick","supprimer(this)");
-      icone.style.width="17px";
-      icone.style.height="17px";
-      icone.style.top="25px";
-      icone.style.left="55px";
-      icone.style.zIndex="9999";
-      icone.style.position="relative";
-      icone.style.cursor="pointer";
+      icone.setAttribute("onclick","supprimer(this)");     
       imageElement.alt = response[i].title;
       figcaption.innerText = "éditer";
       figure.className = "figure-button-modal";
@@ -186,9 +185,12 @@ function afficheGalleryModal () {
       const category = document.getElementById("categories-select").selectedOptions[0].value;
       const image = document.getElementById('file-input').files[0];
       const formData = new FormData();
+      const id = event.id;
+      localStorage.setItem('id'+event.id, event.id);   
       formData.append("title", title);
+      localStorage.setItem('title'+event.id, title);   
       formData.append("image", image);
-      formData.append("category", category);
+      formData.append("category"+event.id, category);
       fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers:{
@@ -198,8 +200,10 @@ function afficheGalleryModal () {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Error status code: ' + res.status + res.Error);
+            throw new Error('Error status code: ' + response.status + response.Error);
           }
+          else
+            alert('Travail Ajouté');
         })
         .then((data) => {
           console.log(data);
@@ -207,7 +211,7 @@ function afficheGalleryModal () {
         .catch((error) => {
           console.error(error);
         });
-    console.log('Travail Ajouté')
+
     }
 
   }
@@ -355,6 +359,10 @@ function openModalAjout ()  {
   categorieImage.innerHTML = "Catégorie";
   categorieImage.className="categorie-image";
 
+  /* Trait Ajout Modal */
+  const traitModalAjout = document.createElement("div");
+  traitModalAjout.className = "traitModalAjout";
+
    /* liste déroulante catégorie */
   const listedéroulanteCategorie = document.createElement("select");
   listedéroulanteCategorie.id = "categories-select";
@@ -372,6 +380,8 @@ function openModalAjout ()  {
   const parentAjout = document.querySelector('#wrapper_modal_1');
   let asideModal = document.querySelector(".modal");
   asideModal.height = "670px";
+
+  /* image ajout aperçu */
   const imgLabel = document.createElement("img");
   imgLabel.id = "imgLabel";
   imgLabel.src = "./assets/images/ajout_image.png";
@@ -383,8 +393,10 @@ function openModalAjout ()  {
   imgLabel.style.cursor="pointer";
   imgLabel.id="img-ajout-image";
   imgAjout.appendChild(imgLabel);
+  imgAjout.appendChild(buttonAjout);
   imgAjoutCache.setAttribute ("onchange","previewPicture(this);")
 
+  /* bouton ajout photos */
   buttonAjout.id="buttonAjout";
   buttonAjout.innerHTML="+ Ajouter photos";
   buttonAjout.type = "file";
@@ -397,12 +409,12 @@ function openModalAjout ()  {
 
   /* Ajout DOM */
   parentAjout.appendChild(divConteneurGallerie);
-  divConteneurGallerie.appendChild(buttonAjout);
   divConteneurGallerie.appendChild(ajoutImageText);
   divConteneurGallerie.appendChild(titreImage);
   divConteneurGallerie.appendChild(inputImage);
   divConteneurGallerie.appendChild(categorieImage);
   divConteneurGallerie.appendChild(listedéroulanteCategorie);
+  divConteneurGallerie.appendChild(traitModalAjout);
   listedéroulanteCategorie.appendChild(categorieObjets);
   listedéroulanteCategorie.appendChild(categorieAppartements);
   listedéroulanteCategorie.appendChild(categorieHotelsRestaurants);
@@ -419,6 +431,7 @@ function deleteModal ()  {
     const body = document.querySelector("body#body");
     body.setAttribute ("style","background: white");
     afficheGallery ();
+    document.querySelector("body#body").setAttribute("style","margin-top:5%");
 }
 
 
