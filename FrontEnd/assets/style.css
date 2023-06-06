@@ -913,4 +913,90 @@ img#img-ajout-image {
 	margin-top:-5%;
 }
 
+/* Small devices (phones, less than 768px) */
+@media (max-width: 767.98px) {
+header {
+display: block;
+}
 
+div.filters {
+    flex-flow: nowrap;
+    flex-wrap: wrap
+}
+
+.gallery {
+grid-template-columns: 1fr 1fr;
+position: relative;
+left:2%;
+}
+
+div.conteneur-gallery {
+margin-top: 15%;
+}
+
+#introduction {
+display: block;
+}
+
+h2 {
+margin-top: 5%;
+font-size: 27px;
+}
+
+button.btn, button.btn-active {
+    box-sizing: border-box;
+    position: relative;
+    height: 43px;
+    margin-top: 0%;
+    border: 1px solid #1D6154;
+    border-radius: 60px;
+    background: white;
+    color: #1D6154;
+    font-weight: 700;
+    width: 40%;
+}
+h1 {
+text-align: center;
+}
+
+nav li {
+margin-left: auto;
+margin-right:auto;
+margin-top: 5%;
+}
+
+div.filters {
+margin-left: auto;
+margin-right: auto;
+position: relative;
+left:5%
+}
+
+#introduction article {
+margin-left: 10%;
+}
+
+#contact {
+width: 80%;
+margin: auto;
+}
+
+input#email2, input#mot-de-passe {
+width:85vw;
+}	
+
+footer#formulaire-connexion li {
+top: 540px;
+}
+label#textEmail {
+margin-bottom: 5%;
+margin-left: 6%;
+}
+label#textMotdePasse {
+margin-bottom: 5%;
+margin-top: 5%;
+margin-left: 6%;
+}
+
+
+}
