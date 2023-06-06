@@ -65,14 +65,21 @@ function afficheGallery () {
       'Authorization': `Bearer ` + localStorage.getItem('token'),
     },
   }).then((resp) => resp.json()).then(function (response) {{ 
+    let test = document.querySelector(".gallery");
+    if (test != null) test.remove();
+    const conteneurGallery = document.querySelector(".conteneur-gallery");
+    const gallery = document.createElement("div");
+    gallery.className = "gallery";
+    // On rattache la balise divElement à la div gallery
+    conteneurGallery.appendChild(gallery);
     for (let i = 0; i < response.length; i++) {
-      const gallery = document.querySelector(".gallery");
+      // On crée l’élément div.
+      const divElement = document.createElement("div");
       // Création d’une balise dédiée à l'image
       const figure = document.createElement("figure");
       // On crée l’élément img.
       const imageElement = document.createElement("img");
-      // On crée l’élément div.
-      const divElement = document.createElement("div");
+
       const divContent = document.createElement("div");
       const figcaption = document.createElement("figcaption");
       // On accède à l’indice i de la liste pieces pour configurer la source de l’image.
@@ -87,7 +94,6 @@ function afficheGallery () {
       divElement.className = "images hotels-restaurants";
       figcaption.title = response[i].title;
       figcaption.innerText = response[i].title;
-      // On rattache la balise divElement à la div gallery
       gallery.appendChild(divElement);
       divElement.appendChild(divContent);
       divContent.appendChild(figure);
@@ -460,7 +466,7 @@ function deleteModal ()  {
       document.querySelector("#ajoutImageText").style.display = "none";
       document.querySelector("div.traitModalAjout").setAttribute("style","top:460px");
       document.querySelector(".button-valider").className = "button-valider-preview";
-      document.querySelector("button.button-valider-preview").setAttribute("style","cursor:pointer;top:500px;left:90px;background:#1D6154;position:relative;height:36px;width:237px;border-radius:60px;color:white;");
+      document.querySelector("button.button-valider-preview").setAttribute("style","cursor:pointer;top:520px;left:90px;background:#1D6154;position:relative;height:36px;width:237px;border-radius:60px;color:white;");
 
   }
 
