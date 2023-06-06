@@ -67,6 +67,25 @@ section {
 	margin: 50px 0
 }
 
+div.traitModal {
+/* Line 1 */
+position: relative;
+width: 420px;
+height: 0px;
+border: 1px solid #B3B3B3;	
+margin-top: 75%;
+}
+
+img.img_supprimer {
+	width:17px;
+	height:17px;
+	top:25px;
+	left:55px;
+	z-index:9999;
+	position:relative;
+	cursor:pointer;	
+}
+
 h1{
 	display: flex;
 	flex-direction: column;
@@ -535,14 +554,31 @@ width: 14.87px;
 height: 14.87px;
     }
 
+img#modifier_noir_2 {
+width: 14.87px;
+height: 14.87px;
+}
+
+div#bouton_modifier_2 {
+display:flex;
+cursor:pointer;
+}
+div#bouton_modifier_2 p {
+margin-left: 5%;
+margin-top: 9%;
+}
+div#bouton_modifier_2 a {
+display:flex;
+text-decoration: none;
+color:black;
+}
 
 div#bouton_modifier {
 /* Group 5 */
-position: absolute;
+position: relative;
 width: 84px;
 height: 18px;
-margin-left: 3.5%;
-top: 610px;
+margin-left: 5%;
 display:flex;
 cursor:pointer;
 }
@@ -627,6 +663,15 @@ border-radius: 10px;
  display:none;
 }
 
+div.traitModalAjout {
+/* Line 1 */
+position: relative;
+width: 420px;
+height: 0px;
+border: 1px solid #B3B3B3;	
+top: 480px;
+}
+
 .figure-button-modal {
 	margin-top: -25%;
 }
@@ -672,7 +717,7 @@ left: 18%;
 position: absolute;
 }
 
-#gallery_modal_1 img {
+.imgElement{
 width: 78.12px;
 height: 104.08px;
 }
@@ -830,10 +875,10 @@ border:none;
 
 button.button-valider {
 /* Rectangle 15 */
-position: absolute;
+position: relative;
 width: 237px;
 height: 36px;
-top: 430px;
+top: 520px;
 left: 90px;
 background: #A7A7A7;
 border-radius: 60px;	
@@ -842,6 +887,8 @@ font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
+border:none;
+color:white;
 }
 
 button.button-valider-preview {
@@ -862,7 +909,7 @@ line-height: 17px;
 }
 img#img-ajout-image {
 	margin-left:170px;
-	margin-top:15px;
+	margin-top:-5%;
 }
 
 
