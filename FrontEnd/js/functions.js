@@ -7,6 +7,7 @@ if (token != null) {
   document.querySelector("li#lien-login").setAttribute("onclick","deconnexion()");
   document.querySelector("div#bouton_modifier").setAttribute("style","display:flex");
   document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:flex");
+  document.querySelector("div#bouton_modifier_2").setAttribute("style","display:flex");
   document.querySelector("div#barre_edition").setAttribute("style","display:flex");
   document.querySelector("div#myBtnContainer").setAttribute("style","display:none");
 }
@@ -14,6 +15,7 @@ else {
   document.querySelector("li#lien-login").setAttribute("onclick","connexion()");
   document.querySelector("div#bouton_modifier").setAttribute("style","display:none");
   document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:none");
+  document.querySelector("div#bouton_modifier_2").setAttribute("style","display:none");
   document.querySelector("div#barre_edition").setAttribute("style","display:none");
 }
 afficheGallery ();
