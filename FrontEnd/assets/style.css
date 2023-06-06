@@ -921,7 +921,7 @@ display: block;
 
 div.filters {
     flex-flow: nowrap;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .gallery {
@@ -941,6 +941,15 @@ display: block;
 h2 {
 margin-top: 5%;
 font-size: 27px;
+}
+.content {
+padding: 0px;
+padding-top: 20%;
+}
+
+body {
+margin-left: 5%;
+margin-right: 5%;
 }
 
 button.btn, button.btn-active {
