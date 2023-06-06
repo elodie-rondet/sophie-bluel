@@ -161,7 +161,7 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.gallery img {
+.conteneur-gallery img {
 	width: 100%;
 }
 
@@ -669,7 +669,7 @@ position: relative;
 width: 420px;
 height: 0px;
 border: 1px solid #B3B3B3;	
-top: 480px;
+top: 460px;
 }
 
 .figure-button-modal {
