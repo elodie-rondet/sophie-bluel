@@ -562,6 +562,7 @@ height: 14.87px;
 div#bouton_modifier_2 {
 display:flex;
 cursor:pointer;
+padding-bottom: 5%;
 }
 div#bouton_modifier_2 p {
 margin-left: 5%;
