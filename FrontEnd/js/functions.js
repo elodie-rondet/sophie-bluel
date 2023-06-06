@@ -142,7 +142,7 @@ function afficheGalleryModal () {
     const supprimerGallery = document.createElement("p");
     supprimerGallery.className = "supprimer-galerie";
     supprimerGallery.innerHTML ="Supprimer la galerie";
-    supprimerGallery.setAttribute("onclick","openModalAjout()")
+    supprimerGallery.setAttribute("onclick","supprimerGallery()")
     divWrapperGallery.appendChild(supprimerGallery);
     if (gallery.childElementCount == 0) {
     for (let i = 0; i < response.length; i++) {
@@ -159,7 +159,7 @@ function afficheGalleryModal () {
       imageElement.src = response[i].imageUrl;
       imageElement.className ="imgElement";
       icone.id = response[i].id;
-      icone.id = "img_supprimer";
+      icone.className = "img_supprimer";
       icone.src = "./assets/images/supprimer.png";
       icone.setAttribute("onclick","supprimer(this)");     
       imageElement.alt = response[i].title;
@@ -294,6 +294,21 @@ const id = event.id;
 }});
 afficheGalleryModal ();
 }
+
+
+function supprimerGallery() {
+  fetch("http://localhost:5678/api/works", {
+    method: "GET",
+    headers:{
+      'Authorization': `Bearer ` + sessionStorage.getItem('token'),
+    },
+  }).then((resp) => resp.json()).then(function (response) {{ 
+  for (let i = 0; i < response.length; i++) {
+  response[i].remove();
+  }
+  afficheGalleryModal ();
+  }});
+  }
 
 function openModalAjout ()  {
   let test = document.querySelector("#modal_modifier_2");
@@ -440,11 +455,15 @@ function deleteModal ()  {
   const image= e.files[0];
   if (picture) {
       document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
-      document.querySelector("#img-ajout-image").setAttribute("style","margin-top:0px;margin-left:auto;margin-right:auto;height:169px;position:relative;display:flex;");
+      document.querySelector("#img-ajout-image").setAttribute("style","margin-top:-9%;margin-left:auto;margin-right:auto;height:169px;position:relative;display:flex;");
       document.querySelector("#buttonAjout").style.display = "none";
       document.querySelector("#ajoutImageText").style.display = "none";
+      document.querySelector("div.traitModalAjout").setAttribute("style","top:460px");
+      document.querySelector(".button-valider").className = "button-valider-preview";
+      document.querySelector("button.button-valider-preview").setAttribute("style","cursor:pointer;top:500px;left:90px;background:#1D6154;position:relative;height:36px;width:237px;border-radius:60px;color:white;");
+
   }
-  document.querySelector(".button-valider").className = "button-valider-preview";
+
   } 
 
 const fenetre=  document.querySelector("#modal_modifier_1") != null ?  document.querySelector("#modal_modifier_1") :  document.querySelector("#modal_modifier_2");
