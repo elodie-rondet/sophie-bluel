@@ -293,6 +293,8 @@ function openModal ()  {
 function supprimer(event) {
 var element = document.getElementsByClassName('img_supprimer');
 const id = event.id;
+var dialog = confirm("Souhaitez-vous supprimer cette image ?");
+if (dialog) {
   fetch("http://localhost:5678/api/works/"+id, {
   method: "DELETE",
   headers:{
@@ -302,9 +304,14 @@ const id = event.id;
 }});
 afficheGalleryModal ();
 }
+else
+ alert("suppression annulée")
+}
 
 
 function supprimerGallery() {
+  var dialog = confirm("Souhaitez-vous supprimer la galerie ?");
+  if (dialog) {
   fetch("http://localhost:5678/api/works", {
     method: "GET",
     headers:{
@@ -316,6 +323,9 @@ function supprimerGallery() {
   }
   afficheGalleryModal ();
   }});
+}
+else
+ alert("suppression annulée")
   }
 
 function openModalAjout ()  {
@@ -336,7 +346,6 @@ function openModalAjout ()  {
   closeButtonGallery.id = "close";
   closeButtonGallery.innerHTML ="X";
   closeButtonGallery.setAttribute("onclick","deleteModal()")
-  closeButtonGallery.style.top="6%";
   divWrapperGallery.appendChild(closeButtonGallery);
   let returnButtonGallery = document.createElement("img");
   returnButtonGallery.id = "return";
@@ -347,8 +356,6 @@ function openModalAjout ()  {
   let titreGallery = document.createElement("p");
   titreGallery.id = "titre_modal_modifier";
   titreGallery.innerHTML ="Ajouter une photo";
-  titreGallery.style.width ="75%";
-  titreGallery.style.left ="10%";
   divWrapperGallery.appendChild(titreGallery);
   const gallery = document.createElement("div");
   gallery.id = "gallery_modal_1";
@@ -358,7 +365,8 @@ function openModalAjout ()  {
   divConteneurGallerie.className = "conteneurGallerie";
   const imgAjout = document.createElement("label");
   const imgAjoutCache = document.createElement("input");
-  const buttonAjout = document.createElement("button");
+  const buttonAjout = document.createElement("img");
+  buttonAjout.src = "./assets/images/ajout_photos.png";
   const ajoutImageText = document.createElement("p");
   ajoutImageText.id = "ajoutImageText";
   ajoutImageText.innerHTML = "jpeg, png, 4mo max";
@@ -461,6 +469,7 @@ function deleteModal ()  {
   function previewPicture(e) {
   const [picture] = e.files
   const image= e.files[0];
+  if ((e.files[0].size < 4000000) && (e.files[0].name.includes("png") || e.files[0].name.includes("jpg") | e.files[0].name.includes("jpeg"))) {
   if (picture) {
       document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
       document.querySelector("#img-ajout-image").setAttribute("style","margin-top:-9%;margin-left:auto;margin-right:auto;height:169px;position:relative;display:flex;");
@@ -471,6 +480,9 @@ function deleteModal ()  {
       document.querySelector("button.button-valider-preview").setAttribute("style","cursor:pointer;top:520px;left:90px;background:#1D6154;position:relative;height:36px;width:237px;border-radius:60px;color:white;");
 
   }
+}
+else
+  alert ("l'image est supérieure à 4 mo ou ne correspond pas au format d'images accepté (png, jpg ou jpeg)");
 
   } 
 
