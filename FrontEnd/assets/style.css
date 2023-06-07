@@ -612,11 +612,11 @@ margin-left: 4%;
 p#titre_modal_modifier {
 /* Galerie photo */
 position: absolute;
-width: 173px;
+width: 250px;
 height: 30px;
 top: 40px;
 text-align: center;
-left: 35%;
+left: 30%;
 
 font-family: 'Work Sans';
 font-style: normal;
@@ -799,11 +799,17 @@ top: 620px;
 cursor: pointer;
 }
 
+/* partie ajout image */
 img#imgAjout {
 	position:absolute;
 	top:20px;	
     left: 180px;
+}
 
+img#buttonAjout {
+    width: 45%;
+    margin-left: 26%;
+    margin-right: auto;
 }
 
 button#buttonAjout  {
