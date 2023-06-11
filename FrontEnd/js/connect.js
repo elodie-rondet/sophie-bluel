@@ -1,3 +1,6 @@
+document.querySelector("input#submit").setAttribute("onclick","connexion()");
+
+
 function connexion() {
   const email = document.querySelector('#email2').value;
   const password = document.querySelector('#mot-de-passe').value;
