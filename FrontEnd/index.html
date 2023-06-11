@@ -36,8 +36,8 @@
 		</figure>
 		<article>
 			<div id="bouton_modifier_2" style="display: none;">
-				<a href="#modal_modifier" onclick="openModal()">
-					<img href="#modal_modifier" id="modifier_noir_2" src="./assets/images/modifier_noir.png"  onclick="openModal()" alt="">
+				<a id="modifier_noir_2" href="#modal_modifier">
+					<img id="img_modifier_noir_2" href="#modal_modifier" src="./assets/images/modifier_noir.png" alt="">
 					<p id="texte_modifier">modifier</p>
 				</a>
 			</div>
@@ -50,24 +50,24 @@
 	<div id="fenetre_modal">
 	</div>
 	<div id="bouton_modifier" style="display: none;">
-		<a href="#modal_modifier" onclick="openModal()">
-			<img href="#modal_modifier" id="modifier_noir" src="./assets/images/modifier_noir.png"  onclick="openModal()" alt="">
+		<a id="modifier_noir" href="#modal_modifier">
+			<img id="img_modifier_noir" href="#modal_modifier" src="./assets/images/modifier_noir.png" alt="">
 			<p id="texte_modifier">modifier</p>
 		</a>
 	</div>
 <section id="portfolio">
 		<h2>Mes projets</h2>
 		<div id="bouton_modifier_projets" style="display: none;">
-			<a href="#modal_modifier" onclick="openModal()">
-				<img href="#modal_modifier" id="modifier_noir" src="./assets/images/modifier_noir.png"  onclick="openModal()" alt="">
+			<a id="modifier" href="#modal_modifier" >
+				<img id="img_modifier" href="#modal_modifier" src="./assets/images/modifier_noir.png" alt="">
 				<p id="texte_modifier">modifier</p>
 			</a>
 		</div>
 <div id="myBtnContainer" class="filters">
-  <button class="btn active" onclick="filterSelection('all')">Tous</button>
-  <button class="btn" onclick="filterSelection('objets')"> Objets</button>
-  <button class="btn" onclick="filterSelection('appartements')"> Appartements</button>
-  <button class="btn" onclick="filterSelection('hotels-restaurants')"> Hôtels & Restaurants</button>
+  <button id="all" class="btn active" >Tous</button>
+  <button id="objets" class="btn"> Objets</button>
+  <button id="appartements" class="btn"> Appartements</button>
+  <button id="hotels-restaurants" class="btn"> Hôtels & Restaurants</button>
 </div>
 
 <!-- Portfolio Gallery Grid -->
