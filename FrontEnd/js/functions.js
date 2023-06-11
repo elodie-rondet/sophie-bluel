@@ -217,8 +217,10 @@ function afficheGalleryModal () {
           if (!response.ok) {
             throw new Error('Error status code: ' + response.status + response.Error);
           }
-          else
+          else {
             alert('Travail Ajouté');
+            deleteModal ();
+          }
         })
         .then((data) => {
           console.log(data);
@@ -427,7 +429,7 @@ function openModalAjout ()  {
   imgAjout.style.cursor = "pointer";
   imgAjoutCache.setAttribute("type","file");
   imgAjoutCache.setAttribute("id","file-input");
-  imgAjoutCache.setAttribute("style","display: none");
+  imgAjoutCache.className = "imgAjoutCache";
   imgLabel.style.cursor="pointer";
   imgLabel.id="img-ajout-image";
   imgAjout.appendChild(imgLabel);
@@ -466,10 +468,9 @@ function deleteModal ()  {
     document.querySelector("#modal_modifier_1").style.display="none";
   if (document.querySelector("#modal_modifier_2") != null)
     document.querySelector("#modal_modifier_2").style.display="none";
-    const body = document.querySelector("body#body");
-    body.setAttribute ("style","background: white");
+    document.querySelector("body#body").className = "body";
     afficheGallery ();
-    document.querySelector("body#body").setAttribute("style","margin-top:5%");
+
 }
 
 
@@ -478,13 +479,12 @@ function deleteModal ()  {
   const image= e.files[0];
   if ((e.files[0].size < 4000000) && (e.files[0].name.includes("png") || e.files[0].name.includes("jpg") | e.files[0].name.includes("jpeg"))) {
   if (picture) {
-      document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
-      document.querySelector("#img-ajout-image").setAttribute("style","margin-top:-9%;margin-left:auto;margin-right:auto;height:169px;position:relative;display:flex;");
-      document.querySelector("#buttonAjout").style.display = "none";
-      document.querySelector("#ajoutImageText").style.display = "none";
-      document.querySelector("div.traitModalAjout").setAttribute("style","top:460px");
-      document.querySelector(".button-valider").className = "button-valider-preview";
-      document.querySelector("button.button-valider-preview").setAttribute("style","cursor:pointer;top:520px;left:90px;background:#1D6154;position:relative;height:36px;width:237px;border-radius:60px;color:white;");
+    document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
+      document.querySelector("#img-ajout-image").id = "imgAjoutImage";
+      document.querySelector("#buttonAjout").className = "buttonAjout";
+      document.querySelector("#ajoutImageText").className = "ajoutImageText";
+      document.querySelector(".button-valider").className = "button-valider-preview-ok";
+
 
   }
 }
