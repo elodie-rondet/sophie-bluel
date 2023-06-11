@@ -1,4 +1,11 @@
 
+document.querySelector("a#modifier_noir_2").setAttribute("onclick","openModal()");
+document.querySelector("a#modifier_noir").setAttribute("onclick","openModal()");
+document.querySelector("a#modifier").setAttribute("onclick","openModal()");
+document.querySelector("button#all").setAttribute("onclick","filterSelection('all')");
+document.querySelector("button#objets").setAttribute("onclick","filterSelection('objets')");
+document.querySelector("button#appartements").setAttribute("onclick","filterSelection('appartements')");
+document.querySelector("button#hotels-restaurants").setAttribute("onclick","filterSelection('hotels-restaurants')");
 var token = localStorage.getItem('token');
 
 if (token != null) {
