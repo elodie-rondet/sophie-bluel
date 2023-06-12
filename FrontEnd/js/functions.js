@@ -9,21 +9,33 @@ document.querySelector("button#hotels-restaurants").setAttribute("onclick","filt
 var token = localStorage.getItem('token');
 
 if (token != null) {
-  document.querySelector("body#body").setAttribute("style","margin-top:8%");
+  document.querySelector("body#body").id = "bodyModal";
   document.querySelector("li#lien-login").innerHTML="logout";
+  document.querySelector("li#lien-login").setAttribute("onclick","connexion()");
+  if (document.querySelector("div#bouton_modifier_deconnexion") != null)
+  document.querySelector("div#bouton_modifier_deconnexion").id = "bouton_modifier";
+  if (document.querySelector("div#bouton_modifier_projets_deconnexion") != null)
+  document.querySelector("div#bouton_modifier_projets_deconnexion").id = "bouton_modifier_projets";
+  if (document.querySelector("div#bouton_modifier_2_deconnexion") != null)
+  document.querySelector("div#bouton_modifier_2_deconnexion").id = "bouton_modifier_2";
+  if (document.querySelector("div#barre_edition_deconnexion") != null)
+  document.querySelector("div#barre_edition_deconnexion").id = "barre_edition";
   document.querySelector("li#lien-login").setAttribute("onclick","deconnexion()");
-  document.querySelector("div#bouton_modifier").setAttribute("style","display:flex");
-  document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:flex");
-  document.querySelector("div#bouton_modifier_2").setAttribute("style","display:flex");
-  document.querySelector("div#barre_edition").setAttribute("style","display:flex");
-  document.querySelector("div#myBtnContainer").setAttribute("style","display:none");
+  if (document.querySelector("div#myBtnContainer_deconnexion") != null)
+  document.querySelector("div#myBtnContainer_deconnexion").id = "myBtnContainer";
 }
 else {
   document.querySelector("li#lien-login").setAttribute("onclick","connexion()");
-  document.querySelector("div#bouton_modifier").setAttribute("style","display:none");
-  document.querySelector("div#bouton_modifier_projets").setAttribute("style","display:none");
-  document.querySelector("div#bouton_modifier_2").setAttribute("style","display:none");
-  document.querySelector("div#barre_edition").setAttribute("style","display:none");
+  if (document.querySelector("div#bouton_modifier") != null)
+  document.querySelector("div#bouton_modifier").id = "bouton_modifier_deconnexion";
+  if (document.querySelector("div#bouton_modifier_projets") != null)
+  document.querySelector("div#bouton_modifier_projets").id = "bouton_modifier_projets_deconnexion";
+  if (document.querySelector("div#bouton_modifier_2") != null)
+  document.querySelector("div#bouton_modifier_2").id = "bouton_modifier_2_deconnexion";
+  if (document.querySelector("div#barre_edition") != null)
+  document.querySelector("div#barre_edition").id = "barre_edition_deconnexion";
+  if (document.querySelector("div#myBtnContainer") != null)
+  document.querySelector("div#myBtnContainer").id = "myBtnContainer_deconnexion";
 }
 afficheGallery ();
 
@@ -61,7 +73,7 @@ if (dialog) {
   document.location.href="index.html"; 
 }
 else {
-  document.querySelector("body#body").setAttribute("style","margin-top:5%");
+  document.querySelector("body#bodyModal").id = "body";
   document.querySelector("li#lien-login").innerHTML="logout";
   document.querySelector("li#lien-login").setAttribute("onclick","deconnexion()");
 }
@@ -200,12 +212,9 @@ function afficheGalleryModal () {
       const category = document.getElementById("categories-select").selectedOptions[0].value;
       const image = document.getElementById('file-input').files[0];
       const formData = new FormData();
-      const id = event.id;
-      localStorage.setItem('id'+event.id, event.id);   
       formData.append("title", title);
-      localStorage.setItem('title'+event.id, title);   
       formData.append("image", image);
-      formData.append("category"+event.id, category);
+      formData.append("category", category);
       fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers:{
@@ -285,15 +294,14 @@ for (var i = 0; i < btns.length; i++) {
  
 
 function openModal ()  {
-  const body = document.querySelector("body#body");
-  body.setAttribute ("style","background: rgba(0, 0, 0, 0.3);");
+  const body = document.querySelector("body#bodyModal") != null ? document.querySelector("body#bodyModal") : document.querySelector("body#body");
+  body.id = "bodyOpenModal";
   afficheGalleryModal ();
   const button = document.createElement("button");
   const parent =  document.querySelector("#wrapper_modal_1");
   button.className = "button-modal";
   button.setAttribute("onclick","openModalAjout()");
   button.innerHTML ="Ajouter une photo";
-  button.style.textAlign="center";
   if (parent != null)
   parent.appendChild(button);
 }
@@ -340,8 +348,6 @@ else
 function openModalAjout ()  {
   let test = document.querySelector("#modal_modifier_2");
   if (test != null) test.remove();
-  const body = document.querySelector("body#body");
-  body.setAttribute ("style","background: rgba(0, 0, 0, 0.3);");
   let fenetreModal = document.querySelector("#fenetre_modal");
   let asideGallery = document.createElement("aside");
   asideGallery.id = "modal_modifier_2";
@@ -464,11 +470,11 @@ function openModalAjout ()  {
 }
 
 function deleteModal ()  {
+  document.querySelector("body#bodyOpenModal").id="body";
   if (document.querySelector("#modal_modifier_1") != null)
     document.querySelector("#modal_modifier_1").style.display="none";
   if (document.querySelector("#modal_modifier_2") != null)
     document.querySelector("#modal_modifier_2").style.display="none";
-    document.querySelector("body#body").className = "body";
     afficheGallery ();
 
 }
