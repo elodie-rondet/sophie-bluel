@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+div#bouton_modifier_deconnexion, div#bouton_modifier_projets_deconnexion, 
+div#bouton_modifier_2_deconnexion, div#barre_edition_deconnexion{
+display: none;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -57,6 +61,16 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background: white;
+}
+body#bodyOpenModal {
+background: rgba(0, 0, 0, 0.3);
+}
+body#bodyModal {
+margin-top: 8%;
+}
+body#body {
+margin-top: 5%;
 }
 header {
 	display: flex;
@@ -74,6 +88,13 @@ width: 420px;
 height: 0px;
 border: 1px solid #B3B3B3;	
 margin-top: 75%;
+}
+
+div#myBtnContainer_deconnexion {
+display:flex;
+}
+div#myBtnContainer {
+display:none;
 }
 
 img.img_supprimer {
@@ -546,13 +567,13 @@ top: 30%;
 bottom: 33.95%;
 }
 
-
+/* boutons modifier  */
 a#modifier_noir,a#modifier,a#modifier_noir_2 {
 margin-right:5%;
 margin-top: -2%;
 width: 14.87px;
 height: 14.87px;
-    }
+}
 
 img#img_modifier_noir_2 {
 width: 14.87px;
@@ -761,7 +782,7 @@ width: 237px;
 height: 36px;
 left: 190px;
 top: 570px;
-
+text-align: center;
 background: #1D6154;
 border-radius: 60px;   
 cursor:pointer;
@@ -992,15 +1013,6 @@ font-size: 27px;
 .content {
 padding: 0px;
 padding-top: 20%;
-}
-
-body {
-margin-left: 5%;
-margin-right: 5%;
-}
-body#body, body.body  {
-margin-top: 5%;
-background: white;
 }
 
 button.btn, button.btn-active {
