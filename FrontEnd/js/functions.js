@@ -9,7 +9,7 @@ document.querySelector("button#hotels-restaurants").setAttribute("onclick","filt
 var token = localStorage.getItem('token');
 
 if (token != null) {
-  document.querySelector("body#body").id = "bodyModal";
+  document.querySelector("body#body").id = "body";
   document.querySelector("li#lien-login").innerHTML="logout";
   document.querySelector("li#lien-login").setAttribute("onclick","connexion()");
   if (document.querySelector("div#bouton_modifier_deconnexion") != null)
@@ -295,7 +295,7 @@ for (var i = 0; i < btns.length; i++) {
 
 function openModal ()  {
   const body = document.querySelector("body#bodyModal") != null ? document.querySelector("body#bodyModal") : document.querySelector("body#body");
-  body.id = "bodyOpenModal";
+  body.id = "bodyModal";
   afficheGalleryModal ();
   const button = document.createElement("button");
   const parent =  document.querySelector("#wrapper_modal_1");
@@ -470,7 +470,7 @@ function openModalAjout ()  {
 }
 
 function deleteModal ()  {
-  document.querySelector("body#bodyOpenModal").id="body";
+  document.querySelector("body#bodyModal").id="body";
   if (document.querySelector("#modal_modifier_1") != null)
     document.querySelector("#modal_modifier_1").style.display="none";
   if (document.querySelector("#modal_modifier_2") != null)
@@ -483,10 +483,11 @@ function deleteModal ()  {
   function previewPicture(e) {
   const [picture] = e.files
   const image= e.files[0];
+  const img= document.querySelector("img#img-ajout-image") != null ? document.querySelector("img#img-ajout-image") : document.querySelector("img#imgAjoutImage");
   if ((e.files[0].size < 4000000) && (e.files[0].name.includes("png") || e.files[0].name.includes("jpg") | e.files[0].name.includes("jpeg"))) {
   if (picture) {
-    document.querySelector("#img-ajout-image").src = URL.createObjectURL(picture);
-      document.querySelector("#img-ajout-image").id = "imgAjoutImage";
+      img.src = URL.createObjectURL(picture);
+      img.id = "imgAjoutImage";
       document.querySelector("#buttonAjout").className = "buttonAjout";
       document.querySelector("#ajoutImageText").className = "ajoutImageText";
       document.querySelector(".button-valider").className = "button-valider-preview-ok";
