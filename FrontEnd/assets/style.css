@@ -920,6 +920,7 @@ font-size: 14px;
 line-height: 17px;
 border:none;
 color:white;
+cursor: pointer;
 }
 
 button.button-valider-preview {
@@ -981,6 +982,16 @@ display:flex;
 }
 .buttonAjout, .imgAjoutCache, p.ajoutImageText {
 display: none;
+}
+
+p#ajoutImageText {
+top:140px;
+left:140px;
+position: absolute;
+	}
+
+img#img-ajout-image, img#imgAjoutImage {
+cursor: pointer;
 }
 
 
@@ -1049,6 +1060,10 @@ left:5%
 
 #introduction article {
 margin-left: 10%;
+}
+
+p#texte_modifier {
+cursor: pointer;
 }
 
 #contact {
