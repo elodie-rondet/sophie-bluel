@@ -984,6 +984,10 @@ display:flex;
 display: none;
 }
 
+button.button-valider-preview-ok {
+cursor: pointer;
+}
+
 p#ajoutImageText {
 top:140px;
 left:140px;
