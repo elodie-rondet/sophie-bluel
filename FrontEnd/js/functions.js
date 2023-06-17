@@ -160,7 +160,6 @@ function afficheGalleryModal () {
     const buttonModal = document.createElement("button");
     buttonModal.className = "button-modal";
     buttonModal.innerHTML ="Ajouter une photo";
-    buttonModal.style.textAlign ="center";
     buttonModal.setAttribute("onclick","openModalAjout()")
     divWrapperGallery.appendChild(buttonModal);
     const supprimerGallery = document.createElement("p");
@@ -202,6 +201,7 @@ function afficheGalleryModal () {
 }
 
   function addWorks(event) {   
+    event.preventDefault;
     var dialog = confirm("Voulez-vous ajouter un nouveau travail ?");
     if (dialog) {
       const title = document.querySelector("input.input-image").value;
@@ -213,14 +213,16 @@ function afficheGalleryModal () {
       formData.append("category", category);
       fetch("http://localhost:5678/api/works", {
         method: "POST",
+        credentials: 'same-origin',
         headers:{
-          'Authorization': `Bearer ${token}`,
+          'Accept': '*/*',
+          'Authorization': `Bearer ${token}` ,
         },
         body: formData,   
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Error status code: ' + response.status);
+            alert('Error status code: ' + response.status);
           }
           else {
             alert('Travail Ajouté');
@@ -231,7 +233,7 @@ function afficheGalleryModal () {
           console.log(data);
         })
         .catch((error) => {
-          console.error(error);
+          alert(error);
         });
 
     }
@@ -383,9 +385,6 @@ function openModalAjout ()  {
   const ajoutImageText = document.createElement("p");
   ajoutImageText.id = "ajoutImageText";
   ajoutImageText.innerHTML = "jpeg, png, 4mo max";
-  ajoutImageText.style.top ="140px";
-  ajoutImageText.style.left ="140px";
-  ajoutImageText.style.position ="absolute";
 
   /* Titre image */
   const titreImage = document.createElement("p");
@@ -430,11 +429,9 @@ function openModalAjout ()  {
   imgLabel.id = "imgLabel";
   imgLabel.src = "./assets/images/ajout_image.png";
   imgAjout.setAttribute("for","file-input");
-  imgAjout.style.cursor = "pointer";
   imgAjoutCache.setAttribute("type","file");
   imgAjoutCache.setAttribute("id","file-input");
   imgAjoutCache.className = "imgAjoutCache";
-  imgLabel.style.cursor="pointer";
   imgLabel.id="img-ajout-image";
   imgAjout.appendChild(imgLabel);
   imgAjout.appendChild(buttonAjout);
@@ -449,6 +446,7 @@ function openModalAjout ()  {
   const boutonValider = document.createElement("button");
   boutonValider.innerHTML = "Valider";
   boutonValider.className="button-valider";
+  boutonValider.type="button";
   boutonValider.setAttribute ("onclick","addWorks(this)")
 
   /* Ajout DOM */
@@ -504,30 +502,3 @@ else
 
   } 
 
-// test déplacer avec souris fenetre modale
-/*fenetre.onmousedown = function(event) {
-  fenetre.style.position = 'absolute';
-  fenetre.style.zIndex = 1000;
-  document.body.append(fenetre);
-
-
-  function moveAt(pageX, pageY) {
-    fenetre.style.left = pageX - fenetre.offsetWidth / 2 + 'px';
-    fenetre.style.top = pageY - fenetre.offsetHeight / 2 + 'px';
-  }
-
-  moveAt(event.pageX, event.pageY);
-
-  function onMouseMove(event) {
-    moveAt(event.pageX, event.pageY);
-  }
-
-  document.addEventListener('mousemove', onMouseMove);
-
-  fenetre.onmouseup = function() {
-    document.removeEventListener('mousemove', onMouseMove);
-    fenetre.onmouseup = null;
-  };
-
-};
-*/
