@@ -682,6 +682,10 @@ border-radius: 10px;
  display:none;
 }
 
+#modal_modifier_1_suppr, #modal_modifier_2_suppr {
+display: none;
+}
+
 div.traitModalAjout {
 /* Line 1 */
 position: relative;
