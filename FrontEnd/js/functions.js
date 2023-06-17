@@ -82,9 +82,6 @@ else {
 function afficheGallery () { 
   const reponse = fetch("http://localhost:5678/api/works", {
     method: "GET",
-    headers:{
-      'Authorization': `Bearer ` + localStorage.getItem('token'),
-    },
   }).then((resp) => resp.json()).then(function (response) {{ 
     let test = document.querySelector(".gallery");
     if (test != null) test.remove();
@@ -133,9 +130,9 @@ function afficheGalleryModal () {
       'Authorization': `Bearer ` + sessionStorage.getItem('token'),
     },
   }).then((resp) => resp.json()).then(function (response) {{ 
-    let test = document.querySelector("#modal_modifier_1");
+    let test = document.querySelector("#modal_modifier_1") != null ? document.querySelector("#modal_modifier_1") : document.querySelector("#modal_modifier_1_suppr");
     if (test != null) test.remove();
-    let test2 = document.querySelector("#modal_modifier_2");
+    let test2 = document.querySelector("#modal_modifier_2") != null ? document.querySelector("#modal_modifier_2") : document.querySelector("#modal_modifier_2_suppr");
     if (test2 != null) test2.remove();
     let fenetreModal = document.querySelector("#fenetre_modal");
     let asideGallery = document.createElement("aside");
@@ -281,7 +278,7 @@ function RemoveClass(element, name) {
 }
 
 // Add active class to the current button (highlight it)
-var btnContainer = document.getElementById("myBtnContainer");
+var btnContainer = document.getElementById("myBtnContainer_deconnexion");
 var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
@@ -471,10 +468,10 @@ function openModalAjout ()  {
 
 function deleteModal ()  {
   document.querySelector("body#bodyModal").id="body";
-  if (document.querySelector("#modal_modifier_1") != null)
-    document.querySelector("#modal_modifier_1").style.display="none";
+  if (document.querySelector("#modal_modifier_1") != null) 
+    document.querySelector("#modal_modifier_1").id = "modal_modifier_1_suppr";
   if (document.querySelector("#modal_modifier_2") != null)
-    document.querySelector("#modal_modifier_2").style.display="none";
+    document.querySelector("#modal_modifier_2").id = "modal_modifier_2_suppr";
     afficheGallery ();
 
 }
@@ -499,8 +496,6 @@ else
   alert ("l'image est supérieure à 4 mo ou ne correspond pas au format d'images accepté (png, jpg ou jpeg)");
 
   } 
-
-const fenetre=  document.querySelector("#modal_modifier_1") != null ?  document.querySelector("#modal_modifier_1") :  document.querySelector("#modal_modifier_2");
 
 // test déplacer avec souris fenetre modale
 /*fenetre.onmousedown = function(event) {
