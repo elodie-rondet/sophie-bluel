@@ -199,7 +199,6 @@ function afficheGalleryModal () {
       figure.appendChild(figcaption);
       }
     }}});
-
 }
 
   function addWorks(event) {   
@@ -221,7 +220,7 @@ function afficheGalleryModal () {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Error status code: ' + response.status + response.Error);
+            throw new Error('Error status code: ' + response.status);
           }
           else {
             alert('Travail Ajouté');
@@ -278,7 +277,9 @@ function RemoveClass(element, name) {
 }
 
 // Add active class to the current button (highlight it)
+if (document.getElementById("myBtnContainer_deconnexion") != null) {
 var btnContainer = document.getElementById("myBtnContainer_deconnexion");
+if (btnContainer.getElementsByClassName("btn") != null)
 var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
@@ -286,6 +287,7 @@ for (var i = 0; i < btns.length; i++) {
     current[0].className = current[0].className.replace(" active", "");
     this.className += " active";
   });
+}
 }
   
  
@@ -314,8 +316,7 @@ if (dialog) {
   headers:{
     'Authorization': `Bearer ` + localStorage.getItem('token'),
   },
-}).then((resp) => resp.json()).then(function (response) {{ 
-}});
+});
 afficheGalleryModal ();
 }
 else
@@ -480,14 +481,20 @@ function deleteModal ()  {
   function previewPicture(e) {
   const [picture] = e.files
   const image= e.files[0];
+
   const img= document.querySelector("img#img-ajout-image") != null ? document.querySelector("img#img-ajout-image") : document.querySelector("img#imgAjoutImage");
   if ((e.files[0].size < 4000000) && (e.files[0].name.includes("png") || e.files[0].name.includes("jpg") | e.files[0].name.includes("jpeg"))) {
   if (picture) {
       img.src = URL.createObjectURL(picture);
-      img.id = "imgAjoutImage";
+      img.onload = () => {
+        URL.revokeObjectURL(img.src);
+      };
+      if (img.id == "img-ajout-image") {
       document.querySelector("#buttonAjout").className = "buttonAjout";
       document.querySelector("#ajoutImageText").className = "ajoutImageText";
       document.querySelector(".button-valider").className = "button-valider-preview-ok";
+      }
+      img.id = "imgAjoutImage";
 
 
   }
