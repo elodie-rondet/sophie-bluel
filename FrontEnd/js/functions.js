@@ -112,6 +112,8 @@ function afficheGallery () {
       divElement.className = "images hotels-restaurants";
       figcaption.title = response[i].title;
       figcaption.innerText = response[i].title;
+
+      // Ajout des éléments au DOM
       gallery.appendChild(divElement);
       divElement.appendChild(divContent);
       divContent.appendChild(figure);
@@ -126,15 +128,16 @@ function afficheGallery () {
 function afficheGalleryModal () {
   fetch("http://localhost:5678/api/works", {
     method: "GET",
-    headers:{
-      'Authorization': `Bearer ` + sessionStorage.getItem('token'),
-    },
   }).then((resp) => resp.json()).then(function (response) {{ 
+    // Eléments ne provenant pas de l'API
+    // Suppression de la fenetre
     let test = document.querySelector("#modal_modifier_1") != null ? document.querySelector("#modal_modifier_1") : document.querySelector("#modal_modifier_1_suppr");
     if (test != null) test.remove();
     let test2 = document.querySelector("#modal_modifier_2") != null ? document.querySelector("#modal_modifier_2") : document.querySelector("#modal_modifier_2_suppr");
     if (test2 != null) test2.remove();
     let fenetreModal = document.querySelector("#fenetre_modal");
+
+    // Création de la fenetre
     let asideGallery = document.createElement("aside");
     asideGallery.id = "modal_modifier_1";
     asideGallery.className = "modal";
@@ -142,11 +145,15 @@ function afficheGalleryModal () {
     let divWrapperGallery = document.createElement("div");
     divWrapperGallery.id = "wrapper_modal_1";
     asideGallery.appendChild(divWrapperGallery);
+
+    // Fermeture de la modale
     let closeButtonGallery = document.createElement("p");
     closeButtonGallery.id = "close";
     closeButtonGallery.setAttribute("onclick","deleteModal()");
     closeButtonGallery.innerHTML ="X";
     divWrapperGallery.appendChild(closeButtonGallery);
+
+    // Titre de la modale
     let titreGallery = document.createElement("p");
     titreGallery.id = "titre_modal_modifier";
     titreGallery.innerHTML ="Galerie photo";
@@ -154,6 +161,8 @@ function afficheGalleryModal () {
     const gallery = document.createElement("div");
     gallery.id = "gallery_modal_1";
     divWrapperGallery.appendChild(gallery);
+
+    // Trait au dessus du bouton ajouter une photo
     const traitModal = document.createElement("div");
     traitModal.className = "traitModal";
     divWrapperGallery.appendChild(traitModal);
@@ -162,12 +171,16 @@ function afficheGalleryModal () {
     buttonModal.innerHTML ="Ajouter une photo";
     buttonModal.setAttribute("onclick","openModalAjout()")
     divWrapperGallery.appendChild(buttonModal);
+
+    // Bouton supprimer Galerie
     const supprimerGallery = document.createElement("p");
     supprimerGallery.className = "supprimer-galerie";
     supprimerGallery.innerHTML ="Supprimer la galerie";
     supprimerGallery.setAttribute("onclick","supprimerGallery()")
     divWrapperGallery.appendChild(supprimerGallery);
     if (gallery.childElementCount == 0) {
+
+    // Boucle et création des images pour la modale
     for (let i = 0; i < response.length; i++) {
       // Création d’une balise dédiée à l'image
       const figure = document.createElement("figure");
@@ -188,7 +201,8 @@ function afficheGalleryModal () {
       imageElement.alt = response[i].title;
       figcaption.innerText = "éditer";
       figure.className = "figure-button-modal";
-      // On rattache la balise divElement à la div gallery
+
+      // Ajout des éléments au DOM
       gallery.appendChild(divElement);
       divElement.appendChild(divContent);
       divContent.appendChild(figure);
@@ -200,22 +214,28 @@ function afficheGalleryModal () {
     }}});
 }
 
-  function addWorks(event) {   
-    event.preventDefault;
+  function addWorks() {   
     var dialog = confirm("Voulez-vous ajouter un nouveau travail ?");
     if (dialog) {
       const title = document.querySelector("input.input-image").value;
       const category = document.getElementById("categories-select").selectedOptions[0].value;
       const image = document.getElementById('file-input').files[0];
       const formData = new FormData();
+      if (image.name == null) {
+      alert("Veuillez sélectionner un fichier.");
+      }
+      else if (title == null) {
+      alert("Veuillez entrer un titre pour votre fichier.");
+      } else if (category == null) {
+      alert("Veuillez sélectionner une catégorie pour votre fichier.");
+      }
+      else {
       formData.append("title", title);
       formData.append("image", image);
       formData.append("category", category);
       fetch("http://localhost:5678/api/works", {
         method: "POST",
-        credentials: 'same-origin',
         headers:{
-          'Accept': '*/*',
           'Authorization': `Bearer ${token}` ,
         },
         body: formData,   
@@ -237,8 +257,11 @@ function afficheGalleryModal () {
         });
 
     }
-
   }
+  else 
+    alert('Ajout annulé');
+  }
+
 
  
   
@@ -309,7 +332,6 @@ function openModal ()  {
 
 
 function supprimer(event) {
-var element = document.getElementsByClassName('img_supprimer');
 const id = event.id;
 var dialog = confirm("Souhaitez-vous supprimer cette image ?");
 if (dialog) {
@@ -358,6 +380,8 @@ function openModalAjout ()  {
   divWrapperGallery.id = "wrapper_modal_1";
   asideGallery.appendChild(divWrapperGallery);
   let closeButtonGallery = document.createElement("p");
+
+  // bouton fermeture fenêtre
   closeButtonGallery.id = "close";
   closeButtonGallery.innerHTML ="X";
   closeButtonGallery.setAttribute("onclick","deleteModal()")
